@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlphaShop - E-Commerce Simulation</title>
+    <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-bar flex justify-between">
+            <a href="#" class="logo" onclick="app.router('home')">ModernShop</a>
+            <nav class="nav-links flex">
+                <button onclick="app.router('home')" id="nav-home">Shop</button>
+                <button onclick="app.router('orders')" id="nav-orders" class="hidden">My Orders</button>
+                <button onclick="app.router('cart')" id="nav-cart">
+                    Cart <span class="cart-badge" id="cart-count">0</span>
+                </button>
+                <button onclick="app.router('auth')" id="nav-auth">Login</button>
+                <button onclick="app.logout()" id="nav-logout" class="hidden">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        
+        <!-- View: Product Listing -->
+        <section id="view-home">
+            <div style="margin-top: 20px;">
+                <h2>Featured Products</h2>
+                <p style="color: var(--text-muted)">Browse our latest collection.</p>
+            </div>
+            <h2>Electronic Devices</h2>
+            <div class="grid product-grid" id="product-list">
+                <!-- Products injected by JS -->
+            </div>
+           
+        </section>
+
+        <!-- View: Cart -->
+        <section id="view-cart" class="hidden">
+            <h2 style="margin-top: 20px;">Shopping Cart</h2>
+            <div class="grid cart-layout">
+                <div id="cart-items-container">
+                    <!-- Cart items injected by JS -->
+                    <p style="text-align: center; padding: 40px; color: var(--text-muted);">Your cart is empty.</p>
+                </div>
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    <br>
+                    <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+                    <div class="summary-row"><span>Tax (5%)</span><span id="cart-tax">$0.00</span></div>
+                    <div class="summary-row total-row"><span>Total</span><span id="cart-total">$0.00</span></div>
+                    <br>
+                    <button class="btn btn-primary" onclick="app.processCheckout()">Proceed to Checkout</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- View: Authentication -->
+        <section id="view-auth" class="hidden">
+            <div class="auth-container">
+                <div id="form-login">
+                    <h2 style="text-align: center; margin-bottom: 20px;">Login</h2>
+                    <form onsubmit="app.handleLogin(event)">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="login-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <div class="toggle-auth">
+                        Don't have an account? <a onclick="app.toggleAuthForm('register')">Register here</a>
+                    </div>
+                </div>
+
+                <div id="form-register" class="hidden">
+                    <h2 style="text-align: center; margin-bottom: 20px;">Register</h2>
+                    <form onsubmit="app.handleRegister(event)">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="reg-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="reg-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="reg-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                    <div class="toggle-auth">
+                        Already have an account? <a onclick="app.toggleAuthForm('login')">Login here</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- View: Orders -->
+        <section id="view-orders" class="hidden">
+            <h2 style="margin-top: 20px;">Order History</h2>
+            <div id="orders-list" style="margin-top: 20px;">
+                <p style="color: var(--text-muted)">No past orders found.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="app.closeModal()">&times;</button>
+            <div class="modal-details" id="modal-body">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+<script src="script.js"></script>   
+</body>
+</html>
